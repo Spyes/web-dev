@@ -1,0 +1,31 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+
+$field-div-height: 550px;
+$field-div-width: 900px;
+
+ul {
+  margin-left: 15px;
+  padding: 0;
+  list-style-type: none;
+//  text-align: center;
+}
+
+ul li {
+  dispaly: inline;
+}
+
+#field-div {
+//  float: left;
+  height: $field-div-height;
+  width: $field-div-width;
+  border: 2px #cecece dashed;
+}
+
+#hand-div img {
+  width: 8em;
+}

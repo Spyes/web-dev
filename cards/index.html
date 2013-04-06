@@ -1,0 +1,60 @@
+<!DOCTYPE html5>
+<html>
+
+<head>
+  <title>Card game in BackboneJS</title>
+  <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div id="content">
+    <div id="field-div">
+      field
+    </div>
+    <div id="info-pane-div">
+      info
+    </div>
+    
+    <div id="hand-div">
+      hand
+      <ul id="hand-list">
+      </ul>
+    </div>
+  </div>
+
+  <script src="libs/jquery-1.9.1.js"></script>
+  <script src="libs/lodash.js"></script>
+  <script src="libs/backbone.js"></script>
+  <script src="libs/stativus.js"></script>
+  <script src="js/card.js"></script>
+  <script src="js/card_view.js"></script>
+  <script src="js/game_states.js"></script>
+<!--  <script src="js/hand.js"></script> -->
+  <script>
+    (function ($) {
+      window.AppView = Backbone.View.extend({
+        el: $("body"),
+
+        initialize: function () {
+//          this.hand = new Hand(null, {view: this});
+
+          var shock = new Card({
+            name: "Shock", 
+            description: "Deal 2 damage to target creature or player",
+            src: "img/shock.jpg"
+          });
+
+          var cardView = new CardView({model: shock});
+          this.$el.find("#hand-list").append(cardView.el);
+        },
+/*
+        addCardLi: function (model) {
+          $("#hand-list").append("<li><img src='" + model.get('image') + "' class='card'></li>");
+        },*/
+      });
+      var appView = new AppView;
+    })(jQuery);
+  </script>
+</body>
+
+</html>
