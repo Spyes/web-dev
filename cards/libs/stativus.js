@@ -7,7 +7,7 @@
   @version: 0.6.2
 */
 if (typeof DEBUG_MODE === "undefined"){
-  DEBUG_MODE = true;
+  DEBUG_MODE = false;
   COLOR_MODE = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
   if (COLOR_MODE) {
     EVENT_COLOR = "#CC00FF";

@@ -9,48 +9,101 @@
 <body>
   <div id="content">
     <div id="field-div">
-      field
     </div>
+
     <div id="info-pane-div">
-      info
     </div>
     
     <div id="hand-div">
-      hand
-      <ul id="hand-list">
-      </ul>
+    </div>
+
+    <div id="next-phase-div">
+      <button id="next-phase-btn">Next Phase</button>
+      <label id="phase-label"></label>
+    </div>
+
+    <div id="deck-div">
+      <img src="img/magiccardback.jpg">
+      <br/>
+      Cards in deck: <label id="card-count-label"></label>
     </div>
   </div>
 
   <script src="libs/jquery-1.9.1.js"></script>
   <script src="libs/lodash.js"></script>
   <script src="libs/backbone.js"></script>
+  <script src="libs/backbone_bind_to.js"></script>
   <script src="libs/stativus.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/game_state.js"></script>
   <script src="js/card.js"></script>
   <script src="js/card_view.js"></script>
+  <script src="js/deck.js"></script>
+  <script src="js/hand.js"></script>
+  <script src="js/hand_view.js"></script>
   <script src="js/game_states.js"></script>
-<!--  <script src="js/hand.js"></script> -->
+  <script src="js/info_view.js"></script>
   <script>
+    Game.initialize();
     (function ($) {
       window.AppView = Backbone.View.extend({
         el: $("body"),
 
-        initialize: function () {
-//          this.hand = new Hand(null, {view: this});
+        events: {
+          'click #next-phase-btn': 'onClickNextPhaseBtn',
+          'click #deck-div': 'onClickDeck'
+        },
 
-          var shock = new Card({
+        initialize: function () {
+          _.bindAll(this, 'render', 'onClickNextPhaseBtn');
+          this.bindTo(Game.gameState, 'change:phase', this.render);
+
+          var info_view = new Game.Views.InfoView({});
+          this.deck = new Game.Collections.Deck({});
+          this.deck.remove(this.deck.at(0));  // remove first element ('undefined' element...)
+          this.bindTo(this.deck, 'add remove', this.render);
+
+          var shock = new Game.Models.Card({
             name: "Shock", 
             description: "Deal 2 damage to target creature or player",
             src: "img/shock.jpg"
           });
+          var black_lotus = new Game.Models.Card({
+            name: "Black Lotus",
+            description: "Tap, Sacrifice Black Lotus: Add three mana of any one color to your mana pool",
+            src: "img/black_lotus.jpg"
+          });
+          this.deck.add(shock);
+          this.deck.add(black_lotus);
 
-          var cardView = new CardView({model: shock});
-          this.$el.find("#hand-list").append(cardView.el);
+          this.hand_collection = new Game.Collections.HandCollection({});
+          this.hand_collection.remove(this.hand_collection.at(0));
+
+          var hand = new Game.Views.HandView({collection: this.hand_collection});
+//          hand_collection.add(deck.at(0));
+//          hand_collection.add(deck.at(1));
+
+          this.render();
         },
-/*
-        addCardLi: function (model) {
-          $("#hand-list").append("<li><img src='" + model.get('image') + "' class='card'></li>");
-        },*/
+
+        render: function () {
+          this.$el.find("#phase-label").text(Game.gameState.get('phase'));
+          this.$el.find("#card-count-label").text(this.deck.size());
+        },
+
+        onClickNextPhaseBtn: function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+
+          statechart.sendEvent('clickNextPhaseBtn');
+        },
+
+        onClickDeck: function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+
+          statechart.sendEvent('clickDeck', this.deck, this.hand_collection);
+        },
       });
       var appView = new AppView;
     })(jQuery);

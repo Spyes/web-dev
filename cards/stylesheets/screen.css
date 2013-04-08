@@ -67,26 +67,54 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 11, ../sass/screen.scss */
-ul {
-  margin-left: 15px;
-  padding: 0;
-  list-style-type: none;
-}
-
-/* line 18, ../sass/screen.scss */
-ul li {
-  dispaly: inline;
-}
-
-/* line 22, ../sass/screen.scss */
+/* line 16, ../sass/screen.scss */
 #field-div {
+  position: absolute;
   height: 550px;
   width: 900px;
-  border: 2px #cecece dashed;
+  border: 1px #cecece dashed;
 }
 
-/* line 29, ../sass/screen.scss */
+/* line 23, ../sass/screen.scss */
+#info-pane-div {
+  left: 900px;
+  right: 0;
+  padding-top: 25px;
+  position: absolute;
+  text-align: center;
+}
+
+/* line 33, ../sass/screen.scss */
+#hand-div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 560px;
+}
+
+/* line 40, ../sass/screen.scss */
 #hand-div img {
   width: 8em;
+  padding-right: 2px;
+  padding-left: 2px;
+}
+
+/* line 46, ../sass/screen.scss */
+#next-phase-div {
+  position: absolute;
+  left: 925px;
+  top: 550px;
+}
+
+/* line 52, ../sass/screen.scss */
+#deck-div {
+  position: absolute;
+  right: 70;
+  top: 585px;
+}
+
+/* line 58, ../sass/screen.scss */
+#deck-div img {
+  width: 12em;
 }

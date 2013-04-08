@@ -4,28 +4,57 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+@import "compass/layout/stretching";
 
 $field-div-height: 550px;
 $field-div-width: 900px;
+$info-pane-div-height: $field-div-height;
 
-ul {
-  margin-left: 15px;
-  padding: 0;
-  list-style-type: none;
-//  text-align: center;
-}
-
-ul li {
-  dispaly: inline;
+#content {
 }
 
 #field-div {
-//  float: left;
+  position: absolute;
   height: $field-div-height;
   width: $field-div-width;
-  border: 2px #cecece dashed;
+  border: 1px #cecece dashed;
+}
+
+#info-pane-div {
+  left: $field-div-width;
+  right: 0;
+  padding-top: 25px;
+  position: absolute;
+//  height: $info-pane-div-height - padding-top;
+//  border: 1px #cecece dashed;
+  text-align: center;
+}
+
+#hand-div {
+  @include stretch-x;
+  position: absolute;
+  top: $field-div-height + 10px;
+//  border: 1px #cecece dashed;
 }
 
 #hand-div img {
   width: 8em;
+  padding-right: 2px;
+  padding-left: 2px;
+}
+
+#next-phase-div {
+  position: absolute;
+  left: $field-div-width + 25px;
+  top: $field-div-height;
+}
+
+#deck-div {
+  position: absolute;
+  right: 70;
+  top: $field-div-height + 35px;
+}
+
+#deck-div img {
+  width: 12em;
 }

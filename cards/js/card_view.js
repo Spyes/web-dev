@@ -1,11 +1,13 @@
-var CardView = Backbone.View.extend({
+Game.Views.CardView = Backbone.View.extend({
   tagName: 'img',
 
   events: {
-    'mouseover': 'onMouseOver'
+    'mouseover': 'onMouseOver',
+    'click': 'onClickCard'
   },
 
   initialize: function () {
+    _.bindAll(this, 'render');
     this.render();
   },
 
@@ -20,6 +22,13 @@ var CardView = Backbone.View.extend({
     e.stopPropagation();
     e.preventDefault();
 
-    statechart.sendEvent('hoverOverCard', {name: this.model.name, description: this.model.description});
-  }
+    statechart.sendEvent('hoverOverCard', this.model);
+  },
+
+  onClickCard: function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    statechart.sendEvent('clickCard', this.model);
+  },
 });
